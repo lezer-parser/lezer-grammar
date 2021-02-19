@@ -140,6 +140,15 @@ Rule { repeat<![\\] | "\\" $[abc\]de] | _> }
 
 Grammar(RuleDeclaration(RuleName, Body(Call(RuleName, ArgList(Choice(InvertedCharSet, Sequence(Literal, CharSet), AnyChar))))))
 
+# Specialization
+
+kw<term> { @specialize<identifier, term> }
+
+==>
+
+Grammar(RuleDeclaration(RuleName, ParamList(Name), Body(
+  Specialization(@specialize, ArgList(RuleName, RuleName)))))
+
 # Comments
 
 // FIXME

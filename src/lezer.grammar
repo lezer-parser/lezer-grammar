@@ -23,9 +23,7 @@ declaration[@isGroup=Declaration] {
     at<"@tokens"> TokensBody { "{" tokenDeclaration* "}" }
   } |
   ExternalTokensDeclaration {
-    at<"@external"> kw<"tokens"> Name kw<"from"> Literal TokensBody {
-      "{" (Token { RuleName Props? } ","?)* "}"
-    }
+    at<"@external"> kw<"tokens"> Name kw<"from"> Literal externalTokenSet
   } |
   ExternalGrammarDeclaration {
     at<"@external"> kw<"grammar"> Name (kw<"as"> Name)? (kw<"from"> Literal | kw<"empty">)
@@ -34,7 +32,7 @@ declaration[@isGroup=Declaration] {
     at<"@external"> kw<"prop"> Name (kw<"as"> Name)? kw<"from"> Literal
   } |
   ExternalSpecializeDeclaration {
-    at<"@external"> (kw<"extend"> | kw<"specialize">) Body Name kw<"from"> Literal
+    at<"@external"> (kw<"extend"> | kw<"specialize">) Body Name kw<"from"> Literal externalTokenSet
   } |
   ContextDeclaration {
     at<"@context"> Name kw<"from"> Literal
@@ -47,7 +45,12 @@ declaration[@isGroup=Declaration] {
   } |
   SkipScope {
     at<"@skip"> Body !scopedSkip SkipBody { "{" RuleDeclaration* "}" }
-  }
+  } |
+  DetectDelimDeclaration { at<"@detectDelim"> }
+}
+
+externalTokenSet[@name=TokensBody] {
+  "{" (Token { RuleName Props? } ","?)* "}"
 }
 
 tokenDeclaration[@isGroup=Declaration] {
@@ -96,7 +99,8 @@ atomExpression[@isGroup=Expression] {
   Repeat { atomExpression !repeat "*" } |
   Repeat1 { atomExpression !repeat "+" } |
   InlineRule { (RuleName !inline Props? | Props) Body } |
-  ParenExpression { "(" expression? ")" }
+  ParenExpression { "(" expression? ")" } |
+  Specialization { (at<"@specialize"> | at<"@extend">) Props? ArgList }
 }
 
 nameExpression {
@@ -137,9 +141,7 @@ at<value> { @specialize[@name={value}]<AtName, value> }
 
   blockCommentAfterStar { "/" | "*" blockCommentAfterStar | ![/*] blockCommentRest }
 
-  nameChar { std.asciiLetter | $[_\u{a1}-\u{10ffff}] }
-
-  name { nameChar (nameChar | std.digit)* }
+  name { (std.asciiLetter | std.digit | $[\-_\u{a1}-\u{10ffff}])+ }
 
   AnyChar { "_" }
 
