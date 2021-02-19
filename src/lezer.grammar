@@ -7,8 +7,6 @@
   namespace
   inline
   repeat
-  seq @left
-  choice @left
 
   scopedSkip
 }
@@ -75,21 +73,29 @@ Props { "[" ((Prop ",")* Prop)? "]" }
 
 Prop { (AtName | Name) ("=" (Literal | Name | "." | PropEsc { "{" RuleName "}" })*)? }
 
-expression[@isGroup=Expression] { // FIXME empty expressions
+expression {
+  seqExpression |
+  Choice[group=Expression] { seqExpression? ("|" seqExpression?)+ }
+}
+
+seqExpression {
+  atomExpression |
+  Sequence[group=Expression] {
+    marker (atomExpression | marker)* |
+    atomExpression (atomExpression | marker)+
+  }
+}
+
+atomExpression[@isGroup=Expression] {
   Literal |
   CharSet |
   AnyChar |
   InvertedCharSet |
   nameExpression |
-  Optional { expression !repeat "?" } |
-  Repeat { expression !repeat "*" } |
-  Repeat1 { expression !repeat "+" } |
-  Sequence {
-    marker (!seq (expression | marker))* |
-    expression (!seq (expression | marker))+
-  } |
+  Optional { atomExpression !repeat "?" } |
+  Repeat { atomExpression !repeat "*" } |
+  Repeat1 { atomExpression !repeat "+" } |
   InlineRule { (RuleName !inline Props? | Props) Body } |
-  Choice { expression (!choice "|" expression)+ } |
   ParenExpression { "(" expression? ")" }
 }
 

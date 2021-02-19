@@ -81,6 +81,19 @@ Rule { foo.bar }
 
 Grammar(RuleDeclaration(RuleName, Body(ScopedName(RuleName, RuleName))))
 
+# Empty expression
+
+Rule1 {}
+Rule2 {|foo|()}
+Rule3 {foo||}
+
+==>
+
+Grammar(
+  RuleDeclaration(RuleName, Body),
+  RuleDeclaration(RuleName, Body(Choice("|",RuleName,"|",ParenExpression))),
+  RuleDeclaration(RuleName, Body(Choice(RuleName,"|","|"))))
+
 # Inline rule
 
 test {
