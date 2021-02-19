@@ -163,6 +163,7 @@ at<value> { @specialize[@name={value}]<AtName, value> }
 
   @precedence { InvertedCharSet, "!" }
 
+  "{" "}" "(" ")" "[" "]"
   "=" "." "|" "!" "~" "*" "+" "?"
 }
 
