@@ -15,7 +15,7 @@ Grammar(PrecedenceDeclaration(@precedence, PrecedenceBody(
 
 ==>
 
-Grammar(TopRuleDeclaration(@top, RuleName, Body(Repeat1(ParenExpression(Choice(RuleName, RuleName))))))
+Grammar(RuleDeclaration(@top, RuleName, Body(Repeat1(ParenExpression(Choice(RuleName, RuleName))))))
 
 # Skip rule
 
@@ -202,8 +202,8 @@ Grammar(ExternalPropDeclaration(@external, prop, Name, as, Name, from, Literal))
 ==>
 
 Grammar(TokensDeclaration(@tokens, TokensBody(
-  TokenRuleDeclaration(RuleName, Body(Choice(Literal, Literal))),
-  TokenRuleDeclaration(RuleName, Props(Prop(AtName, Name)), Body(Repeat1(Literal))),
+  RuleDeclaration(RuleName, Body(Choice(Literal, Literal))),
+  RuleDeclaration(RuleName, Props(Prop(AtName, Name)), Body(Repeat1(Literal))),
   LiteralTokenDeclaration(Literal),
   LiteralTokenDeclaration(Literal, Props(Prop(AtName, Name))))))
 

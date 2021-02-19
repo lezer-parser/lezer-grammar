@@ -13,7 +13,7 @@
 
 declaration[@isGroup=Declaration] {
   RuleDeclaration |
-  TopRuleDeclaration { at<"@top"> RuleName Props? ParamList? Body } |
+  RuleDeclaration { at<"@top"> RuleName Props? ParamList? Body } |
   PrecedenceDeclaration {
     at<"@precedence"> PrecedenceBody {
       "{" (Precedence { PrecedenceName (at<"@left"> | at<"@right"> | at<"@cut">)? } ","?)* "}"
@@ -50,7 +50,7 @@ declaration[@isGroup=Declaration] {
   }
 }
 
-tokenDeclaration[@isGroup=TokenDeclaration] {
+tokenDeclaration[@isGroup=Declaration] {
   TokenPrecedenceDeclaration {
     at<"@precedence"> PrecedenceBody { "{" ((Literal | nameExpression) ","?)* "}" }
   } |
@@ -60,7 +60,7 @@ tokenDeclaration[@isGroup=TokenDeclaration] {
   LiteralTokenDeclaration {
     Literal Props?
   } |
-  TokenRuleDeclaration { RuleName Props? ParamList? Body }
+  RuleDeclaration
 }
 
 RuleDeclaration { RuleName Props? ParamList? Body }
