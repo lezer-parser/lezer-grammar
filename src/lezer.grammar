@@ -25,9 +25,6 @@ declaration[@isGroup=Declaration] {
   ExternalTokensDeclaration {
     at<"@external"> kw<"tokens"> Name kw<"from"> Literal externalTokenSet
   } |
-  ExternalGrammarDeclaration {
-    at<"@external"> kw<"grammar"> Name (kw<"as"> Name)? (kw<"from"> Literal | kw<"empty">)
-  } |
   ExternalPropDeclaration {
     at<"@external"> kw<"prop"> Name (kw<"as"> Name)? kw<"from"> Literal
   } |

@@ -23,7 +23,7 @@ if (fs.existsSync(path.join(root, "bin", "lz.js"))) describe("Other grammars", (
     let src = path.join(root, dir, "src")
     if (fs.existsSync(src)) for (let file of fs.readdirSync(src)) if (/\.grammar$/.test(file)) {
       it(`${dir}/src/${file}`, () => {
-        strictParser.parse(fs.readFileSync(path.join(src, file), "utf8"))
+        strictParser.parse({input: fs.readFileSync(path.join(src, file), "utf8")})
       })
     }
   }

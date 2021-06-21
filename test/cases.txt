@@ -183,14 +183,6 @@ Grammar(ExternalTokensDeclaration(@external, tokens, Name, from, Literal, Tokens
   Token(RuleName),
   Token(RuleName, Props(Prop(AtName, "=", Name))))))
 
-# External grammar declaration
-
-@external grammar a as b from "gram"
-
-==>
-
-Grammar(ExternalGrammarDeclaration(@external, grammar, Name, as, Name, from, Literal))
-
 # External prop declaration
 
 @external prop p as u from "props"
