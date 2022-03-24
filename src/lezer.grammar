@@ -169,4 +169,6 @@ at<value> { @specialize[@name={value}]<AtName, value> }
   "=" "." "|" "!" "~" "*" "+" "?"
 }
 
+@external propSource lezerHighlighting from "./highlight"
+
 @detectDelim
