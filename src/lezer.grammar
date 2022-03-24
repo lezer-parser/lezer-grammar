@@ -13,7 +13,7 @@
 
 declaration[@isGroup=Declaration] {
   RuleDeclaration |
-  RuleDeclaration { at<"@top"> RuleName Props? ParamList? Body } |
+  topRuleDeclaration |
   PrecedenceDeclaration {
     at<"@precedence"> PrecedenceBody {
       "{" (Precedence { PrecedenceName (at<"@left"> | at<"@right"> | at<"@cut">)? } ","?)* "}"
@@ -28,6 +28,9 @@ declaration[@isGroup=Declaration] {
   ExternalPropDeclaration {
     at<"@external"> kw<"prop"> Name (kw<"as"> Name)? kw<"from"> Literal
   } |
+  ExternalPropSourceDeclaration {
+    at<"@external"> kw<"propSource"> Name kw<"from"> Literal
+  } |
   ExternalSpecializeDeclaration {
     at<"@external"> (kw<"extend"> | kw<"specialize">) Body Name kw<"from"> Literal externalTokenSet
   } |
@@ -41,7 +44,7 @@ declaration[@isGroup=Declaration] {
     at<"@skip"> Body
   } |
   SkipScope {
-    at<"@skip"> Body !scopedSkip SkipBody { "{" RuleDeclaration* "}" }
+    at<"@skip"> Body !scopedSkip SkipBody { "{" (RuleDeclaration | topRuleDeclaration)* "}" }
   } |
   DetectDelimDeclaration { at<"@detectDelim"> }
 }
@@ -64,6 +67,8 @@ tokenDeclaration[@isGroup=Declaration] {
 }
 
 RuleDeclaration { RuleName Props? ParamList? Body }
+
+topRuleDeclaration[@name=RuleDeclaration] { at<"@top"> RuleName Props? ParamList? Body }
 
 ParamList { "<" (Name ("," Name)*)? ">" }
 
