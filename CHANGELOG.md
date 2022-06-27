@@ -1,3 +1,9 @@
+## 1.1.0 (2022-06-27)
+
+### New features
+
+Add support for character class markers.
+
 ## 1.0.0 (2022-06-06)
 
 ### New features
