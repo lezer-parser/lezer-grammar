@@ -10,6 +10,7 @@ export const lezerHighlighting = styleTags({
   "@precedence @tokens @context @dialects @skip @detectDelim @conflict": t.definitionKeyword,
   "@extend @specialize": t.operatorKeyword,
   "CharSet InvertedCharSet": t.regexp,
+  "CharClass": t.atom,
   RuleName: t.variableName,
   "RuleDeclaration/RuleName InlineRule/RuleName TokensBody/RuleName": t.definition(t.variableName),
   PrecedenceName: t.labelName,

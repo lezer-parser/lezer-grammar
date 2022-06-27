@@ -97,6 +97,9 @@ atomExpression[@isGroup=Expression] {
   AnyChar |
   InvertedCharSet |
   nameExpression |
+  CharClass {
+    @specialize<AtName, "@asciiLetter" | "@asciiUpperCase" | "@asciiLowerCase" | "@digit" | "@whitespace" | "@eof">
+  } |
   Optional { atomExpression !repeat "?" } |
   Repeat { atomExpression !repeat "*" } |
   Repeat1 { atomExpression !repeat "+" } |

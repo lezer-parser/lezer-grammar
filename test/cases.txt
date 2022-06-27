@@ -228,3 +228,17 @@ Grammar(TokensDeclaration(@tokens, TokensBody(TokenPrecedenceDeclaration(@preced
 ==>
 
 Grammar(TokensDeclaration(@tokens, TokensBody(TokenConflictDeclaration(ConflictBody(RuleName, RuleName)))))
+
+# Char Classes
+
+@tokens {
+  foo { std.asciiLetter+ @digit+ @eof }
+}
+
+==>
+
+Grammar(TokensDeclaration(@tokens,TokensBody(
+  RuleDeclaration(RuleName,Body(Sequence(
+    Repeat1(ScopedName(RuleName,RuleName)),
+    Repeat1(CharClass),
+    CharClass))))))
