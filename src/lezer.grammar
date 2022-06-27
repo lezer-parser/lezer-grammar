@@ -133,7 +133,7 @@ kw<value> { @specialize[@name={value}]<keyword, value> }
 at<value> { @specialize[@name={value}]<AtName, value> }
 
 @tokens {
-  whitespace { std.whitespace+ }
+  whitespace { @whitespace+ }
 
   LineComment { "//" ![\n]* }
 
@@ -143,7 +143,7 @@ at<value> { @specialize[@name={value}]<AtName, value> }
 
   blockCommentAfterStar { "/" | "*" blockCommentAfterStar | ![/*] blockCommentRest }
 
-  name { (std.asciiLetter | std.digit | $[\-_\u{a1}-\u{10ffff}])+ }
+  name { (@asciiLetter | @digit | $[\-_\u{a1}-\u{10ffff}])+ }
 
   AnyChar { "_" }
 
