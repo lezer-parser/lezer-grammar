@@ -1,3 +1,9 @@
+## 1.1.1 (2023-02-28)
+
+### Bug fixes
+
+Add support for `@local tokens` syntax.
+
 ## 1.1.0 (2022-06-27)
 
 ### New features
