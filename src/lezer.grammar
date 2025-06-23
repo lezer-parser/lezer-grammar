@@ -53,7 +53,11 @@ declaration[@isGroup=Declaration] {
 }
 
 externalTokenSet[@name=TokensBody] {
-  "{" (Token { RuleName Props? } ","?)* "}"
+  "{" ((Token { RuleName Props? } ","? | ExternalConflictDeclaration) ","?)* "}"
+}
+
+ExternalConflictDeclaration {
+  at<"@conflict"> ConflictBody { "{" (nameExpression ","?)* "}" }
 }
 
 tokenDeclaration[@isGroup=Declaration] {
